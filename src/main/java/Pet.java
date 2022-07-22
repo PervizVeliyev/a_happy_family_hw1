@@ -1,12 +1,21 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Pet {
 
-    String species;
-    String nickname;
-    int age;
-    int trickLevel;
-    String[] habits;
+    private String species;
+    private String nickname;
+    private int age;
+    private int trickLevel;
+    private String[] habits;
+
+    static {
+        System.out.println("A new pet is being loaded");
+    }
+
+    {
+        System.out.println("A new pet object is created");
+    }
 
     public Pet(String species, String nickname) {
         this.species = species;
@@ -24,6 +33,46 @@ public class Pet {
     public Pet() {
     }
 
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getTrickLevel() {
+        return trickLevel;
+    }
+
+    public void setTrickLevel(int trickLevel) {
+        this.trickLevel = trickLevel;
+    }
+
+    public String[] getHabits() {
+        return habits;
+    }
+
+    public void setHabits(String[] habits) {
+        this.habits = habits;
+    }
+
     @Override
     public String toString() {
         return  this.species + '{' +
@@ -32,6 +81,21 @@ public class Pet {
                 ", trickLevel=" + trickLevel +
                 ", habits=" + Arrays.toString(habits) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return nickname.equals(pet.nickname) && Arrays.equals(habits, pet.habits);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(nickname);
+        result = 31 * result + Arrays.hashCode(habits);
+        return result;
     }
 
     public void eat() {
